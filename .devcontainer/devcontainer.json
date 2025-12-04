@@ -1,8 +1,9 @@
 {
     "name": "R Dev Container",
-    "image": "mcr.microsoft.com/devcontainers/r:latest",
-    "features": {},
-    "postCreateCommand": "R -e \"install.packages('tidyverse', repos='https://cloud.r-project.org/')\"",
+    "image": "rocker/tidyverse:latest",
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {}
+    },
     "customizations": {
         "vscode": {
             "extensions": [
