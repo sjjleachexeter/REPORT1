@@ -1,5 +1,13 @@
 {
     "name": "R Dev Container",
-    "image": "mcr.microsoft.com/devconatiners/r:latest",
-    "features": {}
+    "image": "mcr.microsoft.com/devcontainers/r:latest",
+    "features": {},
+    "postCreateCommand": "R -e \"install.packages('tidyverse', repos='https://cloud.r-project.org/')\"",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "REditorSupport.r"
+            ]
+        }
+    }
 }
