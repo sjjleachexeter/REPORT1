@@ -38,7 +38,11 @@ edugraph = further_filtered %>%
     ggplot(mapping = aes(x = edu, y = prop_correct)) +
     # to compare 2 discrete groups against each other based on continuous data, box plots are the best visualiser
     geom_boxplot() +
-    labs(x = "Education", y = "Score")
+    labs(x = "Education", y = "Score", title = "Education Box plot", subtitle = "A graph showing box plots representative\nof the scores of each education group") +
+    theme(plot.title = element_text(size=22, hjust=0.5, family = "Times New Roman"),
+          plot.subtitle = element_text(size=8, hjust=0.5, family = "Arial"),
+          axis.title = element_text(size=10),
+          axis.text = element_text(size=6))
 
 ggsave("ComparativeEducations.png", plot = edugraph)
 
@@ -83,7 +87,16 @@ percentNA = (intnoValue/totalRows)*100
 adjectiveRelationship = y %>%
     # here we remove rows with no data
     drop_na(gbooks_freq) %>%
+    # there are many outliers which made the original graph difficult to interpret,
+    # so for this version I am going to view a large subset to get a better visual of the trend of data
+    filter(gbooks_freq >= quantile(gbooks_freq, 0.1) & gbooks_freq <= quantile(gbooks_freq, 0.9)) %>%
     ggplot(mapping = aes(x = gbooks_freq, y = prop_item_correct)) +
     geom_point() +
-    geom_smooth()
+    geom_smooth() +
+    labs(x = "Google books frequency", y = "Proportion Correct", title = "Adjective Relationship", subtitle = "A graph showing the relationship between\nadjective frequency and common understanding of them") +
+    theme(plot.title = element_text(size=22, hjust=0.5, family = "Times New Roman"),
+          plot.subtitle = element_text(size=8, hjust=0.5, family = "Arial"),
+          axis.title = element_text(size=10),
+          axis.text = element_text(size=6),
+          axis.text.x = element_text(angle=90))
 ggsave("AdjectiveRelationship.png", plot = adjectiveRelationship)
